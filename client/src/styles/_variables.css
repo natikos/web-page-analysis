@@ -1,0 +1,13 @@
+:root {
+  --main-bg-color: slategray;
+  --error-color: red;
+  --primary-color: lightblue;
+  --secondary-color: pink;
+
+  --primary-text-color: black;
+  --secondary-text-color: white;
+}
+
+.form-field {
+  --max-width: 300px;
+}
