@@ -1,0 +1,14 @@
+.button {
+  font-size: 1.3em;
+  background: linear-gradient(var(--primary-color), var(--secondary-color));
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: var(--primary-text-color);
+  transition: box-shadow 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 7px 5px 10px black;
+  font-size: 1.4em;
+}

@@ -1,0 +1,23 @@
+.form-field__wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  padding: 1em;
+  max-width: var(--max-width);
+}
+
+.form-field__label {
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
+}
+
+.form-field__input {
+  font-size: 1.3em;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+}
+
+.form-field__input:focus-visible {
+  outline: none;
+  border: 3px solid var(--secondary-color);
+}
