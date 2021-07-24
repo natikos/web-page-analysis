@@ -1,5 +1,6 @@
 :root {
-  --main-bg-color: slategray;
+  --primary-bg-color: aliceblue;
+  --secondary-bg-color: slategray;
   --error-color: red;
   --primary-color: lightblue;
   --secondary-color: pink;
