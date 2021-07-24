@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { DEFAULT_PORT } = require('./constants');
+const routeHandler = require('./service');
 
 const PORT = process.env.PORT ?? DEFAULT_PORT;
 
@@ -12,10 +13,7 @@ app.get('/', (_, response) => {
   response.send('Hello to web scrapping!');
 });
 
-app.get('/info', async (request, response) => {
-  const { url } = request.body;
-  response.send(`I got ${url}`);
-});
+app.get('/info', routeHandler.getInfo);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);
