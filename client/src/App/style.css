@@ -1,0 +1,30 @@
+#app {
+  height: 100vh;
+  width: 100%;
+  background: var(--primary-bg-color);
+  margin: 0 auto;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 6px solid var(--primary-color);
+}
+
+@media screen and (min-width: 450px) {
+  #app {
+    max-width: 90vw;
+    max-height: 400px;
+    box-shadow: 7px 7px 15px lightcyan;
+  }
+}
+
+@media screen and (min-width: 570px) {
+  #app {
+    max-width: 85vw;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  #app {
+    max-width: 500px;
+  }
+}
