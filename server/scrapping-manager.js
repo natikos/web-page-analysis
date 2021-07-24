@@ -1,17 +1,14 @@
 const cheerio = require('cheerio');
 
 class ScrappingManager {
-  #$root = null;
-  #$body = null;
+  #$document = null;
 
   loadPage(webPage) {
-    const document = cheerio.load(webPage);
-    this.#$root = document.root();
-    this.#$body = document;
+    this.#$document = cheerio.load(webPage);
   }
 
   getScrappedData() {
-    if (!this.#$body || !this.#$root) {
+    if (!this.#$document) {
       throw new Error('Document was not loaded');
     }
 
@@ -22,16 +19,17 @@ class ScrappingManager {
   }
 
   get #title() {
-    return this.#$body('title').text();
+    return this.#$document('title').text();
   }
 
   get #htmlVersion() {
     const startStrOfDoctype = '<!doctype';
     const endStrOfDoctype = '<html';
-    const caseInsensitiveDoc = this.#$root.html().toLowerCase();
+    const root = this.#$document.root().html();
+    const caseInsensitiveDoc = root.toLowerCase();
     const startIndex = caseInsensitiveDoc.indexOf(startStrOfDoctype);
     const endIndex = caseInsensitiveDoc.indexOf(endStrOfDoctype);
-    const doctypeStr = this.#$root.html().substring(startIndex, endIndex + 1);
+    const doctypeStr = root.substring(startIndex, endIndex + 1);
     return this.#determineHtmlVersion(doctypeStr);
   }
 
