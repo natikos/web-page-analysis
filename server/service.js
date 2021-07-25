@@ -6,7 +6,8 @@ async function getInfoOfWebPage(req, res) {
   const page = await httpService.get(url);
   const scrappingManager = new ScrappingManager();
   scrappingManager.loadPage(page);
-  res.json(scrappingManager.getScrappedData());
+  const result = await scrappingManager.getScrappedData();
+  res.json(result);
 }
 
 const routeHandler = {
