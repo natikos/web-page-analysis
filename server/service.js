@@ -4,7 +4,7 @@ const ScrappingManager = require('./scrapping-manager');
 async function getInfoOfWebPage(req, res) {
   const { url } = req.body;
   const page = await httpService.get(url);
-  const scrappingManager = new ScrappingManager();
+  const scrappingManager = new ScrappingManager(url);
   scrappingManager.loadPage(page);
   const result = await scrappingManager.getScrappedData();
   res.json(result);
