@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const { HTML5, HEADING_TAGS } = require('./constants');
 
 class ScrappingManager {
   #$document = null;
@@ -15,11 +16,21 @@ class ScrappingManager {
     return {
       htmlVersion: this.#htmlVersion,
       title: this.#title,
+      headings: this.#headingsData
     };
   }
 
+  get #headingsData() {
+    const result = {};
+    this.#$document(HEADING_TAGS).each((_, { tagName }) => {
+      const currentAmount = result[tagName] ?? 0;
+      result[tagName] = currentAmount + 1;
+    });
+    return result;
+  }
+
   get #title() {
-    return this.#$document('title').text();
+    return this.#$document('head > title').text();
   }
 
   get #htmlVersion() {
@@ -37,7 +48,7 @@ class ScrappingManager {
     const patternToDetermineOldVersions = /\/\/DTD\s(.*?)\/\//;
     const match = doctypeElement.match(patternToDetermineOldVersions);
     const versionGroup = match?.[1];
-    return versionGroup || 'HTML 5';
+    return versionGroup || HTML5;
   }
 }
 
