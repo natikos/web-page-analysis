@@ -4,14 +4,19 @@ const { HTML5, HEADING_TAGS } = require('./constants');
 
 class ScrappingManager {
   #$document = null;
+  #url = '';
+
+  constructor(url) {
+    this.#url = url;
+  }
 
   loadPage(webPage) {
     this.#$document = cheerio.load(webPage);
   }
 
   async getScrappedData() {
-    if (!this.#$document) {
-      throw new Error('Document was not loaded');
+    if (!this.#$document || !this.#url) {
+      throw new Error('Document was not loaded or url was not set');
     }
 
     const images = await this.#imagesData();
@@ -20,8 +25,24 @@ class ScrappingManager {
       htmlVersion: this.#htmlVersion,
       title: this.#title,
       headings: this.#headingsData,
-      images
+      images,
+      links: this.#links
     };
+  }
+
+  get #links() {
+    const links = this.#$document('a').map((_, link) => this.#$document(link).attr('href')).toArray();
+    const webPageHostname = new URL(this.#url).hostname;
+    return links.reduce((result, current) => {
+      try {
+        const url = new URL(current);
+        return url.hostname === webPageHostname || !url.hostname
+          ? { ...result, internal: result.internal + 1 }
+          : { ...result, external: result.external + 1 };
+      } catch (e) {
+        return { ...result, invalid: result.invalid + 1 };
+      }
+    }, { internal: 0, external: 0, invalid: 0 });
   }
 
   async #imagesData() {
