@@ -1,0 +1,35 @@
+#info {
+  --border: 1px solid lightgray;
+
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  margin-top: 0.7em;
+}
+
+#info > h2 {
+  font-size: 1.2em;
+  margin: 0;
+  margin-bottom: 0.7em;
+}
+
+#info > .result {
+  border: var(--border);
+}
+
+#info > .result > .row {
+  display: flex;
+  justify-content: space-between;
+  border: var(--border);
+  padding: 10px 5px;
+}
+
+#info > .result > .row > span:first-child{
+  width: 40%;
+  font-weight: bolder;
+}
+
+#info > .result > .row > span:last-child{
+  width: 55%;
+  word-wrap: break-word;
+}

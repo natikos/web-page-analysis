@@ -1,9 +1,17 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, ReactElement, useState } from 'react';
 import Button from 'components/Button';
 import FormField from 'components/FormField';
+import { IScrappedData } from 'interfaces';
 import './style.css';
+import service from 'services/api.service';
 
-export default function Form() {
+interface IFormProps {
+  prepareForNewData: () => void;
+  newDataArrived: (data: IScrappedData) => void;
+  isLoading: boolean;
+}
+
+export default function Form({ prepareForNewData, newDataArrived, isLoading }: IFormProps): ReactElement {
   const [fields, setFields] = useState({
     url: {
       value: '',
@@ -11,9 +19,11 @@ export default function Form() {
     }
   });
 
-  const submitUrlForAnalysis: FormEventHandler<HTMLFormElement> = (event) => {
+  const submitUrlForAnalysis: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    console.log('Submit');
+    prepareForNewData();
+    service.getScrappedInfo(fields.url.value)
+      .then(newDataArrived);
   };
 
   const onUrlFieldChange = (url: string): void => {
@@ -44,6 +54,6 @@ export default function Form() {
       onChange={onUrlFieldChange}
       validation={{ message: 'Invalid url', isValid: fields.url.isValid }}
     />
-    <Button type='submit' text='Submit' disabled={!fields.url.isValid}/>
+    <Button type='submit' text='Submit' disabled={!fields.url.isValid || isLoading} />
   </form>
 }
