@@ -19,14 +19,40 @@ class ScrappingManager {
       throw new Error('Document was not loaded or url was not set');
     }
 
-    const images = await this.#imagesData();
+    const { largest: largestImg, amount: imgAmount } = await this.#getImagesData();
 
     return {
-      htmlVersion: this.#htmlVersion,
-      title: this.#title,
-      headings: this.#headingsData,
-      images,
-      links: this.#links
+      htmlVersion: [{
+        label: 'HTML Version',
+        value: this.#htmlVersion
+      }],
+      title: [{
+        label: 'Web-page title',
+        value: this.#title
+      }],
+      headings: Object.entries(this.#headingsData)
+        .map(([tag, amount]) => ({
+          label: `Amount of ${tag}`,
+          value: amount
+        })),
+      images: [
+        {
+          label: 'The largest image',
+          value: largestImg.url,
+        },
+        {
+          label: 'Dimensions of the largest image',
+          value: `${largestImg.width}px x ${largestImg.height}px`
+        },
+        {
+          label: 'Amount of images',
+          value: imgAmount,
+        }
+      ],
+      links: Object.entries(this.#links).map(([type, amount]) => ({
+        label: `Amount of ${type} links`,
+        value: amount
+      }))
     };
   }
 
@@ -45,7 +71,7 @@ class ScrappingManager {
     }, { internal: 0, external: 0, invalid: 0 });
   }
 
-  async #imagesData() {
+  async #getImagesData() {
     const amount = this.#$document('img').length;
     const imagesData = [];
 
