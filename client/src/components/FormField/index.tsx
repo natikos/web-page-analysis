@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import './style.css';
 
 interface IFormFieldProps {
@@ -8,7 +8,7 @@ interface IFormFieldProps {
   onChange: (value: string) => void;
   validation?: {
     message: string;
-    isInvalid: boolean;
+    isValid: boolean;
   };
   placeholder?: string;
   type?: 'text' | 'url';
@@ -25,11 +25,16 @@ export default function FormField(props: IFormFieldProps): ReactElement {
     type = 'text'
   } = props;
 
+  const [isDirty, setIsDirty] = useState(false);
+
+  const turnOnInvalidState = !validation?.isValid && isDirty;
+
   const getClassNames = (elementTag: string) => {
     const baseClass = `form-field__${elementTag}`;
-    return validation?.isInvalid
+    return turnOnInvalidState
       ? `${baseClass} ${baseClass}_invalid`
       : baseClass;
+
   };
 
   return (
@@ -44,10 +49,15 @@ export default function FormField(props: IFormFieldProps): ReactElement {
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={({ target }) => onChange(target.value)}
+          onChange={({ target }) => {
+            if (!isDirty) {
+              setIsDirty(true);
+            }
+            onChange(target.value);
+          }}
         />
       </div>
-      {!!validation?.isInvalid && <p>{validation.message}</p>}
+      {turnOnInvalidState && <p className="form-field__message">{validation?.message}</p>}
     </div>
   );
 }
