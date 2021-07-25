@@ -1,9 +1,13 @@
 #app {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  min-height: 300px;
   width: 100%;
   background: var(--primary-bg-color);
   margin: 0 auto;
   padding: 10px 20px;
+  padding-bottom: 1em;
   box-sizing: border-box;
   max-width: 100%;
   border: 6px solid var(--primary-color);
@@ -11,8 +15,9 @@
 
 @media screen and (min-width: 450px) {
   #app {
+    height: auto;
     max-width: 90vw;
-    max-height: 400px;
+    max-height: 500px;
     box-shadow: 7px 7px 15px lightcyan;
   }
 }
@@ -25,6 +30,7 @@
 
 @media screen and (min-width: 700px) {
   #app {
-    max-width: 500px;
+    max-width: 600px;
+    max-height: 650px;
   }
 }
