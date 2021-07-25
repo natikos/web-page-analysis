@@ -3,11 +3,11 @@ const ScrappingManager = require('./scrapping-manager');
 
 async function getInfoOfWebPage(req, res) {
   const { url } = req.body;
-  const page = await httpService.get(url);
+  const { data, loadingTimeInSec } = await httpService.get(url);
   const scrappingManager = new ScrappingManager(url);
-  scrappingManager.loadPage(page);
+  scrappingManager.loadPage(data);
   const result = await scrappingManager.getScrappedData();
-  res.json(result);
+  res.json({ ...result, loadingTimeInSec });
 }
 
 const routeHandler = {
