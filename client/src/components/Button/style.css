@@ -12,3 +12,9 @@
   box-shadow: 7px 5px 10px black;
   font-size: 1.4em;
 }
+
+.button:disabled {
+  box-shadow: none;
+  font-size: 1.3em;
+  opacity: 0.7;
+}
