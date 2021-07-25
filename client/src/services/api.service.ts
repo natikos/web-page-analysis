@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { IScrappedData } from 'interfaces';
+import { toast } from 'react-toastify';
+import { IScrappedData } from 'common/interfaces';
 
 const service = {
   getScrappedInfo: async (url: string): Promise<IScrappedData> => {
@@ -9,8 +10,10 @@ const service = {
       endpoint,
       { params: { url } })
       .then(({ data }) => data)
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        toast(
+          error.response?.data?.error ?? 'Error! Please, try again later :(',
+          { className: 'notification_failure' });
       });
 
     return response;

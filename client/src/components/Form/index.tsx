@@ -1,7 +1,7 @@
 import { FormEventHandler, ReactElement, useState } from 'react';
 import Button from 'components/Button';
 import FormField from 'components/FormField';
-import { IScrappedData } from 'interfaces';
+import { IScrappedData } from 'common/interfaces';
 import './style.css';
 import service from 'services/api.service';
 
