@@ -1,4 +1,5 @@
 @import url('./_variables.css');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -20,4 +21,19 @@ code {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.Toastify__toast.notification_failure {
+  cursor: default;
+  border: 6px solid var(--primary-color);
+  box-shadow: 7px 7px 15px var(--secondary-color);
+}
+
+.notification_failure .notification__progressbar {
+  background: var(--secondary-color);
+}
+
+.notification__content {
+  color: var(--primary-text-color);
+  font-weight: bold;
 }

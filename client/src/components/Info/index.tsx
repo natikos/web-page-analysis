@@ -1,4 +1,4 @@
-import { IScrappedData, IScrappedDataPiece } from 'interfaces';
+import { IScrappedData, IScrappedDataPiece } from 'common/interfaces';
 import { ReactElement } from 'react';
 import './styles.css';
 
