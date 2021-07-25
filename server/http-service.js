@@ -37,7 +37,7 @@ module.exports = {
         case 'ECONNREFUSED':
           throw ({ status: 500, error: 'Page is not reachable' });
         case 'ECONNABORTED':
-          throw ({ status: 408, error: 'Timeout' });
+          throw ({ status: 408, error: 'Timeout exceeded' });
         default:
           throw ({ status: 500, error: 'Internal server error' });
       }
