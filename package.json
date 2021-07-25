@@ -1,0 +1,32 @@
+{
+  "name": "web-page-analysis",
+  "version": "1.0.0",
+  "description": "A web-application does a basic analysis of a web-page.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natikos/web-page-analysis.git"
+  },
+  "keywords": [
+    "scrapping",
+    "express",
+    "react",
+    "cheerio"
+  ],
+  "scripts": {
+    "install-server": "cd server && yarn",
+    "run-server": "cd server && yarn start",
+    "install-client": "cd client && yarn",
+    "run-client": "cd client && yarn start",
+    "app-prepare": "concurrently --raw \"yarn:install-server\" \"yarn:install-client\"",
+    "start": "concurrently --raw \"yarn:run-server\" \"yarn:run-client\""
+  },
+  "author": "natikos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natikos/web-page-analysis/issues"
+  },
+  "homepage": "https://github.com/natikos/web-page-analysis#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
