@@ -1,22 +1,23 @@
 const httpService = require('./http-service');
 const ScrappingManager = require('./scrapping-manager');
+const { mapDataToSingleStructure } = require('./utils');
 
 async function getInfoOfWebPage(req, res) {
-    const { url } = req.body;
-    const { data, loadingTimeInSec } = await httpService.get(url);
-    const scrappingManager = new ScrappingManager(url);
-    scrappingManager.loadPage(data);
-    const result = await scrappingManager.getScrappedData();
-    res.json({ ...result, loadingTimeInSec });
+  const { url } = req.query;
+  const { data, loadingTimeInSec } = await httpService.get(url);
+  const scrappingManager = new ScrappingManager(url);
+  scrappingManager.loadPage(data);
+  res.json(mapDataToSingleStructure({ ...result, loadingTimeInSec }));
 }
 
 async function validateInputUrl(req, res, next) {
+  const { url } = req.query;
   try {
-    const urlObj = new URL(req.body.url);
+    const urlObj = new URL(url);
     if (!urlObj.hostname || !urlObj.protocol) {
       const errResponse = {
         error: 'Invalid URL is provided',
-        value: req.body.url
+        value: url
       }
       return res.status(400).json(errResponse);
     }
@@ -24,7 +25,7 @@ async function validateInputUrl(req, res, next) {
   } catch (e) {
     const errResponse = {
       error: 'url is not provided or it is not an URL',
-      value: req.body.url
+      value: url
     }
     return res.status(400).json(errResponse);
   }
