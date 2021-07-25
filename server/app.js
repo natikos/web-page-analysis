@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const { DEFAULT_PORT } = require('./constants');
 const routeHandler = require('./service');
@@ -9,6 +10,7 @@ const PORT = process.env.PORT ?? DEFAULT_PORT;
 const app = express();
 
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.get('/', (_, response) => {
   response.send('Hello to web scrapping!');
