@@ -62,11 +62,17 @@ class ScrappingManager {
   }
 
   #detectLargestImage(items) {
-    return items.reduce(function (current, potential) {
+    const result = items.reduce(function (current, potential) {
       const squareOfPotential = potential.width * potential.height;
-      const squareOfCurrent = current.width * current.height;
+      const squareOfCurrent = current?.width * current?.height;
       return squareOfCurrent > squareOfPotential ? current : potential;
-    });
+    }, null);
+
+    return result ?? {
+      url: 'None',
+      width: 0,
+      height: 0,
+    };
   }
 
   async #getImageDimensions(url) {
