@@ -7,6 +7,7 @@ async function getInfoOfWebPage(req, res) {
   const { data, loadingTimeInSec } = await httpService.get(url);
   const scrappingManager = new ScrappingManager(url);
   scrappingManager.loadPage(data);
+  const result = await scrappingManager.getScrappedData();
   res.json(mapDataToSingleStructure({ ...result, loadingTimeInSec }));
 }
 
