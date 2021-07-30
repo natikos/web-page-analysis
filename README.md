@@ -5,7 +5,12 @@ Feel free to check out the steps (tickets) for building the application [here](h
 
 ## Installation & running
 
-When in the root directory install node_modules:
+When in the root directory install dependecies in order to can install project by one command:
+```javascript
+yarn install
+```
+
+after installation is finished run script which install all dependencies for both front- & back-end sides:
 ```javascript
 yarn app-prepare
 ```
